@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["Item 1","Item 2", "Item 3"]
+    var itemArray = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,6 +47,30 @@ class TodoListViewController: UITableViewController {
         
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //MARK: Add UIButtonPressed
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem)
+    {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Nowy wiersz tabeli", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Dodaj", style: .default) { (action) in
+            //co się stanie jeżeli użytkownik klikniej przycisk dodania
+            self.itemArray.append(textField.text!)
+            print("Udało sie")
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (userTextField) in
+            userTextField.placeholder = "Co mam być dodane"
+            textField = userTextField
+            
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
     }
     
 }
